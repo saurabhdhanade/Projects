@@ -1,0 +1,41 @@
+#insert into settings.py
+ACCOUNT_ACTIVATION_DAYS = 3
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'xyze@gmail.com'
+EMAIL_HOST_PASSWORD = 'XXXXX'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+LOGIN_REDIRECT_URL = "/"
+
+
+# insert into installed apps
+'registration'
+
+
+#insert into urls.py of main project
+path('accounts/',include('registration.backends.default.urls')),
+
+# insert into views.py
+
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+
+@method_decorator(login_required, name = 'dispatch')   #decorator for set password to this class 
+class EmployeesDetailViews(DetailView):
+    model = Employees
+    
+
+# for login and logout from current page insert this template into base.html
+
+
+
+{% if user.is_authenticated %}
+<a href="/accounts/logout">Logout</a>
+{% else %}
+<a href="/accounts/login">Login</a>
+{% endif %}
+    
